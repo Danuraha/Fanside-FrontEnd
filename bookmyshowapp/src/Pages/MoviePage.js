@@ -5,6 +5,7 @@ import { Grid, Typography } from "@mui/material";
 import MediaCard from "../Components/Card";
 
 function MoviePage() {
+  
   return (
     <Grid sx={{backgroundColor:'#f5e6f0'}}>
       <Typography fontSize={"30px"}>Movies</Typography>

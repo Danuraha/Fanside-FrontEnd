@@ -7,6 +7,8 @@ import SignupPage from './Pages/SignUp';
 import UserProfilePage from './Pages/ProfilePage';
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 import MoviePage from './Pages/MoviePage';
+import MovieDescriptionPage from './Pages/MovieDescriptionPage';
+import CinemaPage from './Pages/CinemaPage';
 
 function App() {
   return (
@@ -18,9 +20,11 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/profile" element={<UserProfilePage />} />
         <Route path="/movies" element={<MoviePage />} />
+        <Route path="/movieDescription" element={<MovieDescriptionPage />} />
+        <Route path="/cinemaPage" element={<CinemaPage />} />
       </Routes>
     </Router>
-    
+   
    
    </div>
   );

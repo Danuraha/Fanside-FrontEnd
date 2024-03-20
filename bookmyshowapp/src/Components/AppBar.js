@@ -72,6 +72,10 @@ export default function PrimarySearchAppBar() {
     navigate("/movies"); // Navigate to login page on button click
   };
 
+  const handleCinemaClick = () => {
+    navigate("/CinemaPage"); // Navigate to login page on button click
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -193,11 +197,11 @@ export default function PrimarySearchAppBar() {
             orientation="vertical"
             variant="middle"
             flexItem
-            sx={{ backgroundColor: "white", height: "100px", margin: "5px" }}
+            sx={{ backgroundColor: "white", height: "50px", margin: "5px" ,marginTop:'35px'}}
           />
           <Button
             variant="h3"
-            
+            onClick={handleCinemaClick}
             sx={{ display: { xs: "none", sm: "block",fontSize:'20px' } }}
           >
             CINEMAS
@@ -226,7 +230,7 @@ export default function PrimarySearchAppBar() {
               {" "}
               SignUp
             </Button>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
@@ -234,7 +238,7 @@ export default function PrimarySearchAppBar() {
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

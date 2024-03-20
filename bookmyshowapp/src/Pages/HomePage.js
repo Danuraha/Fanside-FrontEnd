@@ -3,12 +3,16 @@ import React from "react";
 import Img from "./../images/Theatre.jpeg";
 import PrimarySearchAppBar from "../Components/AppBar";
 import TitlebarBelowImageList from "../Components/Cardlists";
-import { useNavigate } from 'react-router-dom'; // Import for navigation
+import { useNavigate } from "react-router-dom"; // Import for navigation
+import CinemaCardList from "../Components/CinemaCardLists";
 function HomePage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/movies'); // Navigate to login page on button click
+    navigate("/movies"); // Navigate to login page on button click
+  };
+  const handleCinemaClick = () => {
+    navigate("/CinemaPage"); // Navigate to login page on button click
   };
   return (
     <div>
@@ -24,18 +28,19 @@ function HomePage() {
       >
         {" "}
         {/* Adjust height as needed */}
-        
       </Grid>
       <Grid>
         <Typography>Movies</Typography>
-        <Button sx={{marginLeft:"89vw"}} onClick={handleClick}>See More</Button>
+        <Button sx={{ marginLeft: "89vw" }} onClick={handleClick}>
+          See More
+        </Button>
         <TitlebarBelowImageList />
       </Grid>
       <Grid>
         <Typography>Cinemas</Typography>
-        <Button sx={{marginLeft:"89vw"}}>See More</Button>
+        <Button sx={{ marginLeft: "89vw" }} onClick={handleCinemaClick}>See More</Button>
 
-        <TitlebarBelowImageList />
+        <CinemaCardList />
       </Grid>
     </div>
   );
