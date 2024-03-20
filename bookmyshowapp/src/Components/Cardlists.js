@@ -13,7 +13,7 @@ export default function TitlebarBelowImageList() {
               src={`${item.img}?w=248&fit=crop&auto=format`}
               alt={item.title}
               loading="lazy"
-             
+            style={{width:'250px'}}
             />
             <ImageListItemBar
               title={item.title}
