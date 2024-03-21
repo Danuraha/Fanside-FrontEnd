@@ -12,6 +12,9 @@ export default function MediaCard() {
   const handleClick=() => {
     navigate('/movieDescription');
   }
+  const handlebookclick=() => {
+    navigate('/ticketBooking');
+  }
   return (
     <Card sx={{ maxWidth: 345 ,backgroundColor:'#ed6683'}}>
       <CardMedia
@@ -29,7 +32,7 @@ export default function MediaCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+        <Button size="small" onClick={handlebookclick}>Book</Button>
         <Button size="small" onClick={handleClick}>View More</Button>
       </CardActions>
     </Card>

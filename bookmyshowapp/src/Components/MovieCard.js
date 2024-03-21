@@ -16,6 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Img from './../images/Movie.jpeg';
 import { Button } from '@mui/material';
+import { useNavigate } from'react-router-dom'; // Import for navigation
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -28,6 +29,11 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/ticketBooking"); // Navigate to login page on button click
+  };
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -70,7 +76,7 @@ export default function RecipeReviewCard() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button variant='contained' sx={{margin:'20px'}} >Book Now</Button>
+        <Button variant='contained' sx={{margin:'20px'}}  onClick={handleClick}>Book Now</Button>
         {/* <IconButton aria-label="share">
           <ShareIcon />
         </IconButton> */}
