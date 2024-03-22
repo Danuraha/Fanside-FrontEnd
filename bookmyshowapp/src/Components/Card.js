@@ -16,9 +16,9 @@ export default function MediaCard() {
     navigate('/ticketBooking');
   }
   return (
-    <Card sx={{ maxWidth: 345 ,backgroundColor:'#ed6683'}}>
+    <Card sx={{ maxWidth: '20vw' ,backgroundColor:'#ed6683'}}>
       <CardMedia
-        sx={{ height: 140 }}
+        sx={{ height: '10vw' }}
         image={Img}
         title="green iguana"
       />

@@ -30,11 +30,11 @@ function LoginPage() {
   };
 
   return (
-    <Grid container flexDirection={'row'} sx={{marginLeft:'80px'}} >  
+    <Grid container flexDirection={'row'} sx={{marginLeft:'6vw'}} >  
         <Grid item >
-<img src={lOGIN} width={'800px'} />
+<img src={lOGIN} width={'500vw'} />
         </Grid> 
-<Grid  item sx={{marginTop:'300px',marginLeft:'200px'}}> 
+<Grid  item sx={{marginTop:'8vw',marginLeft:'7vw'}}> 
       <div className="login-page" > 
       <h1>Login</h1>
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}

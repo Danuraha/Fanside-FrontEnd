@@ -43,11 +43,11 @@ function SignupPage() {
   };
 
   return (
-    <Grid container flexDirection={'row'}sx={{margin:'40px'}}>
+    <Grid container flexDirection={'row'}sx={{margin:'2vw'}}>
         <Grid item>
-<img src={Image} width={'800px'}/>
+<img src={Image} width={'600vw'}/>
         </Grid>
-        <Grid item sx={{marginTop:'150px',width:'700px'}}>
+        <Grid item sx={{marginTop:'4vw',width:'30vw'}}>
         <div className="signup-page">
       <h1>Sign Up</h1>
       {errorMessage && <p className="error-message">{errorMessage}</p>}

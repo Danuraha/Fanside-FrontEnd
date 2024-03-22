@@ -16,13 +16,13 @@ function MoviePage() {
         <MediaCard />
         <MediaCard />
       </Grid>
-      <Grid container direction={'row'} justifyContent={'space-between'} marginTop={'50px'}> 
+      <Grid container direction={'row'} justifyContent={'space-between'} marginTop={'5vw'}> 
         <MediaCard />
         <MediaCard />
         <MediaCard />
         <MediaCard />
       </Grid>
-      <Grid container direction={'row'} justifyContent={'space-between'}marginTop={'50px'}> 
+      <Grid container direction={'row'} justifyContent={'space-between'}marginTop={'5vw'}> 
         <MediaCard />
         <MediaCard />
         <MediaCard />

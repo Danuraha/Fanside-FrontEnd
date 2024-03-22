@@ -14,9 +14,9 @@ export default function CinemaCard() {
 //     navigate('/movieDescription');
 //   }
   return (
-    <Card sx={{ maxWidth: 345 ,backgroundColor:'#e6953e'}}>
+    <Card sx={{ maxWidth: '20vw' ,backgroundColor:'#e6953e'}}>
       <CardMedia
-        sx={{ height: 140 }}
+        sx={{ height: '10vw' }}
         image={Img}
         title="green iguana"
       />
