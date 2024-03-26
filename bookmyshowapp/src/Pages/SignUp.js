@@ -7,15 +7,23 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { Grid } from "@mui/material";
 import Image from "./../images/SignUp.jpeg";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function SignupPage() {
-  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  
+  const handlefirstNameChange = (event) => {
+    setfirstName(event.target.value);
+  };
+
+  const handlelastNameChange = (event) => {
+    setlastName(event.target.value);
   };
 
   const handleEmailChange = (event) => {
@@ -34,11 +42,14 @@ function SignupPage() {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8080/register", {
-        username,
+      const response = await axios.post("http://localhost:8081/api/v1/auth/signup", {
+        firstName,
+        lastName,
+        email,
         password,
       });
       console.log("Signup successful!", response.data);
+      navigate("/login");
       // Handle successful signup (e.g., redirect to login page)
     } catch (error) {
       if (error.response) {
@@ -63,17 +74,29 @@ function SignupPage() {
           <form onSubmit={handleSubmit}>
             <FormControl margin="normal" fullWidth>
               <TextField
-                label="Username"
+                label="firstName"
                 variant="outlined"
                 required
-                value={username}
-                onChange={handleUsernameChange}
+                value={firstName}
+                onChange={handlefirstNameChange}
               />
               <FormHelperText>
-                {errorMessage ? "Username is required" : ""}
+                {errorMessage ? "firstName is required" : ""}
               </FormHelperText>
             </FormControl>
-            {/* <FormControl margin="normal" fullWidth>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                label="lastName"
+                variant="outlined"
+                required
+                value={lastName}
+                onChange={handlelastNameChange}
+              />
+              <FormHelperText>
+                {errorMessage ? "lastName is required" : ""}
+              </FormHelperText>
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
           <TextField
             label="Email"
             variant="outlined"
@@ -83,7 +106,7 @@ function SignupPage() {
             onChange={handleEmailChange}
           />
           <FormHelperText>{errorMessage ? 'Email is required' : ''}</FormHelperText>
-        </FormControl> */}
+        </FormControl>
             <FormControl margin="normal" fullWidth>
               <TextField
                 label="Password"
@@ -99,14 +122,16 @@ function SignupPage() {
             </FormControl>
             <FormControl margin="normal" fullWidth>
               <TextField
-            label="Confirm Password"
-            variant="outlined"
-            type="password"
-            required
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-          />
-          <FormHelperText>{errorMessage ? 'Passwords do not match' : ''}</FormHelperText>
+                label="Confirm Password"
+                variant="outlined"
+                type="password"
+                required
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+              />
+              <FormHelperText>
+                {errorMessage ? "Passwords do not match" : ""}
+              </FormHelperText>
             </FormControl>
             <Button variant="contained" type="submit" fullWidth>
               Sign Up

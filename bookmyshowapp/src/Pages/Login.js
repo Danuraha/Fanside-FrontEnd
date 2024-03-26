@@ -5,36 +5,40 @@ import { Grid } from "@mui/material";
 import lOGIN from "./../images/Login.jpeg";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function LoginPage() {
-  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
   
     try {
-      const response = await axios.post("http://localhost:8080/login", {
-        username,
+      console.log(email,password);
+      const response = await axios.post("http://localhost:8081/api/v1/auth/signin", {
+        email,
         password,
       }); // Adjust the URL if needed
   
       // Handle successful login
       console.log("Login successful:", response.data);
+      
       // Store authentication token (if applicable)
       // Redirect to the main application or dashboard
-      setUsername("");
+      setEmail("");
       setPassword("");
       setErrorMessage(""); // Clear any previous errors
-  
+      navigate("/");
     } catch (error) {
       // Handle login errors
       console.error("Login error:", error);
@@ -55,12 +59,12 @@ function LoginPage() {
           {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
           <form onSubmit={handleSubmit}>
             <TextField
-              label="Username"
+              label="Email"
               variant="outlined"
               required
               fullWidth
-              value={username}
-              onChange={handleUsernameChange}
+              value={email}
+              onChange={handleEmailChange}
               margin="normal"
             />
             <TextField
