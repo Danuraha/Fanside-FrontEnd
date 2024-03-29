@@ -1,14 +1,14 @@
 import React from "react";
-import RecipeReviewCard from "../Components/MovieCardDes";
+import CinemaRecipeReviewCard from "../Components/CinemaDes";
 import { Grid, Typography } from "@mui/material";
-function MovieDescriptionPage() {
+function CinemaDescriptionPage() {
   return (
     <Grid sx={{backgroundColor: "#f5e6f0" ,height:'1300px'}}>
-      <Typography textAlign={"center"}>Movie Name</Typography>
+      <Typography textAlign={"center"}>Cinema Name</Typography>
       <Grid display="flex" sx={{ justifyContent: "center", marginTop: "20px" }}>
-        <RecipeReviewCard />
+        <CinemaRecipeReviewCard/>
       </Grid>
     </Grid>
   );
 }
-export default MovieDescriptionPage;
+export default CinemaDescriptionPage;

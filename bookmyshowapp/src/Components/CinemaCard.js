@@ -6,34 +6,40 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
-import Img from './../images/Movie.jpeg'
+import Img from './../images/Cinema.jpeg'
 import { useNavigate } from'react-router-dom'; // Import for navigation
-export default function CinemaCard() {
-//   const navigate = useNavigate();
-//   const handleClick=() => {
-//     navigate('/movieDescription');
-//   }
+export default function CinemaCard({data}) {
+  const navigate = useNavigate();
+  const handleClick=() => {
+    navigate('/cinemaMovie');
+  }
+  const handleBookClick=() => {
+    navigate(`/cinemaDescription/${data.cinemaId}`);
+  }
   return (
-    <Card sx={{ maxWidth: '20vw' ,backgroundColor:'#e6953e'}}>
+    <Card sx={{ width: '230px',height:'350px', backgroundColor: '#8c0446' ,borderRadius:'10px' }}>
       <CardMedia
-        sx={{ height: '10vw' }}
+        sx={{ height: '200px' ,border: '3px solid #fff',borderRadius:'10px' }}
         image={Img}
         title="green iguana"
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Cinema
+      <CardContent sx={{height:'50px'}}>
+      <Typography gutterBottom variant="h7" component="div" color={'white'}>
+          {data.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        <Typography variant="body2" color="grey">
+          {data.location}
+        
         </Typography>
       </CardContent>
       <Grid display={'flex'} sx={{justifyContent:'center'}}> 
-      <CardActions>
-        {/* <Button size="small">Book</Button> */}
-        <Button size="small"  >View More</Button>
-      </CardActions>
+      <CardActions sx={{marginLeft:'8px'}} >
+    
+    <Button sx={{marginRight:'40px'}} variant='contained'size="small" onClick={ handleClick}>Book</Button>
+    <Button size="small" onClick={handleBookClick}>View More</Button>
+
+  
+</CardActions>
       </Grid>
      
     </Card>

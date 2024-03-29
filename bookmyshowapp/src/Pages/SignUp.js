@@ -49,6 +49,7 @@ function SignupPage() {
         password,
       });
       console.log("Signup successful!", response.data);
+      alert("Signup successful!");
       navigate("/login");
       // Handle successful signup (e.g., redirect to login page)
     } catch (error) {

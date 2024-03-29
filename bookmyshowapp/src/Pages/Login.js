@@ -19,20 +19,23 @@ function LoginPage() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
-      console.log(email,password);
-      const response = await axios.post("http://localhost:8081/api/v1/auth/signin", {
-        email,
-        password,
-      }); // Adjust the URL if needed
-  
+      // console.log(email,password);
+      const response = await axios.post(
+        "http://localhost:8081/api/v1/auth/signin",
+        {
+          email,
+          password,
+        }
+      ); // Adjust the URL if needed
+
       // Handle successful login
       console.log("Login successful:", response.data);
-      
+      alert("Login successful");
       // Store authentication token (if applicable)
       // Redirect to the main application or dashboard
       setEmail("");
@@ -44,14 +47,12 @@ function LoginPage() {
       console.error("Login error:", error);
       setErrorMessage("Invalid username or password. Please try again.");
     }
-  
-  
   };
 
   return (
-    <Grid container flexDirection={"row"} sx={{ marginLeft: "6vw" }}>
-      <Grid item>
-        <img src={lOGIN} width={"500vw"} />
+    <Grid container flexDirection={"row"} sx={{ backgroundColor: "#f2d9fa" }}>
+      <Grid item >
+        <img src={lOGIN} width={"630px"} />
       </Grid>
       <Grid item sx={{ marginTop: "8vw", marginLeft: "7vw" }}>
         <div className="login-page">

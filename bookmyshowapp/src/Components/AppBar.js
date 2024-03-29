@@ -189,7 +189,7 @@ export default function PrimarySearchAppBar() {
           <Button
             variant="h3"
             onClick={handleClick}
-            sx={{ display: { xs: "none", sm: "block" ,fontSize:'20px'} }}
+            sx={{ display: { xs: "none", sm: "block" ,fontSize:'20px'},fontWeight:'bold' }}
           >
             MOVIES
           </Button>
@@ -197,12 +197,12 @@ export default function PrimarySearchAppBar() {
             orientation="vertical"
             variant="middle"
             flexItem
-            sx={{ backgroundColor: "white", height: "50px", margin: "5px" ,marginTop:'35px'}}
+            sx={{  height: "30px", margin: "5px" ,marginTop:'30px',width:'3px',backgroundColor:'yellow'}}
           />
           <Button
             variant="h3"
             onClick={handleCinemaClick}
-            sx={{ display: { xs: "none", sm: "block",fontSize:'20px' } }}
+            sx={{ display: { xs: "none", sm: "block",fontSize:'20px' } ,fontWeight:'bold'}}
           >
             CINEMAS
           </Button>

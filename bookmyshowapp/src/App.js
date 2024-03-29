@@ -10,7 +10,9 @@ import MoviePage from "./Pages/MoviePage";
 import MovieDescriptionPage from "./Pages/MovieDescriptionPage";
 import CinemaPage from "./Pages/CinemaPage";
 import TicketbookingPage from "./Pages/TicketbookingPage";
-
+import MovieCinemaPage from "./Pages/MovieCinemaPage";
+import CinemaMovie from "./Pages/CinemaMoviePage";
+import CinemaDescriptionPage from "./Pages/CinemaDescriptionPage";
 function App() {
   return (
     <div>
@@ -21,9 +23,12 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/movies" element={<MoviePage />} />
-          <Route path="/movieDescription" element={<MovieDescriptionPage />} />
+          <Route path="/movieDescription/:movieId" element={<MovieDescriptionPage />} />
+          <Route path="/cinemaDescription/:cinemaId" element={<CinemaDescriptionPage />} />
           <Route path="/cinemaPage" element={<CinemaPage />} />
           <Route path="/ticketBooking" element={<TicketbookingPage />} />
+          <Route path="/movieCinema" element={<MovieCinemaPage />} />
+          <Route path="/cinemaMovie" element={<CinemaMovie />} />
         </Routes>
       </Router>
     </div>
