@@ -11,7 +11,7 @@ import { useNavigate } from'react-router-dom'; // Import for navigation
 export default function CinemaCard({data}) {
   const navigate = useNavigate();
   const handleClick=() => {
-    navigate('/cinemaMovie');
+    navigate(`/cinemaMovie/${data.cinemaId}`);
   }
   const handleBookClick=() => {
     navigate(`/cinemaDescription/${data.cinemaId}`);

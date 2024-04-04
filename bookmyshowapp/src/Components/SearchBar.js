@@ -14,7 +14,7 @@ const Search = styled('div')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: '#f2d0ce',
   '&:hover': {
-    backgroundColor: '#fff',
+    backgroundColor: '#f2d9fa',
   },
   marginLeft: 0,
   width: '100%',

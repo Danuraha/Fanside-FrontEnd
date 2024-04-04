@@ -4,6 +4,7 @@ import { Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import SearchBar from "../Components/SearchBar";
+import PrimarySearchAppBar from "../Components/AppBar";
 function CinemaPage() {
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -37,7 +38,10 @@ function CinemaPage() {
     }
   }, [searchtext, items]); // Update filteredItems whenever searchText or items change
   return (
-    <Grid sx={{ backgroundColor: "#f2d9fa", width: "100%", height: "100%" }}>
+    <Grid>
+      <PrimarySearchAppBar/>
+  <Grid sx={{width: "100%", height: "100%" }}>
+      
       <Typography fontSize={"30px"} fontWeight={'bold'} sx={{marginLeft:'40px',padding:'10px'}}>Cinemas</Typography>
       <SearchBar handleSearchChange={handleSearchChange} />
       <Grid
@@ -55,6 +59,8 @@ function CinemaPage() {
         })}
       </Grid>
     </Grid>
+    </Grid>
+  
   );
 }
 export default CinemaPage;

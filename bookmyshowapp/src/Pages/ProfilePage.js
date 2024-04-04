@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
 import { useEffect } from 'react';
+import PrimarySearchAppBar from '../Components/AppBar';
 const UserProfile = () => {
   const [userData, setUserData] = useState({});
   const [editMode, setEditMode] = useState(false);
@@ -19,7 +20,7 @@ const UserProfile = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://your-backend-api-endpoint'); // Replace with your actual API endpoint
+      const response = await axios.get('http://localhost:8081/api/v1/user/1'); // Replace with your actual API endpoint
       setUserData(response.data);
       setEditedUserData(response.data); // Initialize editedUserData with fetched data
     } catch (error) {
@@ -45,18 +46,23 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.put('http://', editedUserData); // Replace with your actual PUT endpoint
-      console.log('Saved edited data:', response.data);
-      setUserData(response.data); // Update local state with saved data
+      const response = await axios.put('http://localhost:8081/api/v1/user/save', 
+      {editedUserData}
+      );
+      console.log('Response from PUT request:', response.data);
+      setUserData(response.data);
       setEditMode(false);
     } catch (error) {
       console.error('Error saving edited data:', error);
-      // Handle errors appropriately, e.g., display an error message to the user
+      // Display an error message to the user or handle the error appropriately
     }
   };
+  
 
   return (
-    <Card sx={{ maxWidth: 600, margin: 'auto', padding: 3 ,marginTop:'80px',marginBottom:'40px',backgroundColor:'#f2c9dd'}}>
+    <Grid>
+      <PrimarySearchAppBar/>
+      <Card sx={{ maxWidth: 600, margin: 'auto', padding: 3 ,marginTop:'80px',marginBottom:'40px',backgroundColor:'#f2c9dd'}}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
@@ -68,6 +74,7 @@ const UserProfile = () => {
           <Grid item xs={12} sm={6}>
             {editMode ? (
               <>
+             
                 <TextField
                   label="First Name"
                   name="firstName"
@@ -103,9 +110,9 @@ const UserProfile = () => {
                   margin="normal"
                 />
                 <TextField
-                  label="Sex"
-                  name="sex"
-                  value={editedUserData.sex}
+                  label="Gender"
+                  name="gender"
+                  value={editedUserData.gender}
                   onChange={handleChange}
                   fullWidth
                   margin="normal"
@@ -120,7 +127,7 @@ const UserProfile = () => {
                   Phone Number: {userData.phoneNumber}
                 </Typography>
                 <Typography variant="body1">Address: {userData.address}</Typography>
-                <Typography variant="body1">Sex: {userData.sex}</Typography>
+                <Typography variant="body1">Gender: {userData.gender}</Typography>
               </>
             )}
           </Grid>
@@ -130,18 +137,23 @@ const UserProfile = () => {
           color="primary"
           sx={{marginTop:'20px',marginLeft:'50px'}}
           endIcon={<EditIcon />}
-          onClick={handleEditClick}
-          disabled={editMode}
+          // onClick={handleEditClick}
+          // onClick={handleSave}
+          // disabled={editMode}
+          onClick={editMode ? handleSave : handleEditClick}
         >
           {editMode ? 'Save' : 'Edit Profile'}
+          {/* {editMode ? onClick={handleSave}: onClick={handleEditClick}} */}
         </Button>
         {editMode && (
-          <Button variant="outlined" onClick={handleSave} sx={{marginTop:'20px',marginLeft:'20px'}}>
+          <Button variant="outlined" onClick={handleEditClick} sx={{marginTop:'20px',marginLeft:'20px'}}>
             Cancel
           </Button>
         )}
       </CardContent>
     </Card>
+    </Grid>
+ 
   );
 };
 

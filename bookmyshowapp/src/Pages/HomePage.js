@@ -6,6 +6,7 @@ import TitlebarBelowImageList from "../Components/Cardlists";
 import { useNavigate } from "react-router-dom"; // Import for navigation
 import CinemaCardList from "../Components/CinemaCardLists";
 import './HomePage.css'
+import Footer from "./Footer";
 function HomePage() {
   const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ function HomePage() {
     navigate("/CinemaPage"); // Navigate to login page on button click
   };
   return (
-    <Grid sx={{backgroundColor:'#f2d9fa'}}> 
+    <Grid > 
       <PrimarySearchAppBar />
       <Grid
       container
@@ -79,6 +80,9 @@ function HomePage() {
         </Button>
 
         <CinemaCardList />
+      </Grid>
+      <Grid sx={{ marginTop: "20px" }}>
+        <Footer/>
       </Grid>
     </Grid>
   );

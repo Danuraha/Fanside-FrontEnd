@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-// import { Link } from 'react-router-dom'; // for navigation (optional)
+import { Link } from 'react-router-dom'; // for navigation (optional)
 import { Grid } from "@mui/material";
 import Image from "./../images/SignUp.jpeg";
 import axios from "axios";
@@ -68,7 +68,7 @@ function SignupPage() {
       <Grid item>
         <img src={Image} width={"600vw"} />
       </Grid>
-      <Grid item sx={{ marginTop: "4vw", width: "30vw" }}>
+      <Grid item sx={{  width: "30vw" }}>
         <div className="signup-page">
           <h1>Sign Up</h1>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -139,7 +139,7 @@ function SignupPage() {
             </Button>
           </form>
           <p>
-            {/* Already have an account? <Link to="/login">Login</Link> here. */}
+            Already have an account? <Link to="/login">Login</Link> here.
           </p>
         </div>
       </Grid>

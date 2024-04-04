@@ -59,17 +59,17 @@ export default function CinemaRecipeReviewCard() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/cinemaMovie"); // Navigate to login page on button click
+    navigate(`/cinemaMovie/${cinemaId}`); // Navigate to login page on button click
   };
-  const [expanded, setExpanded] = React.useState(false);
+  // const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   return (
-    <Card sx={{ width: "1200px" }}>
-      <CardHeader
+    <Card >
+      <CardHeader 
         // avatar={
         //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
         //     R
@@ -83,7 +83,7 @@ export default function CinemaRecipeReviewCard() {
         title={data.name}
       />
       <CardMedia component="img" height="400" image={Img} alt="Paella dish" />
-      <CardContent>
+      <CardContent >
         <Typography variant="body2" color="text.secondary">
           {data.location}
         </Typography>
@@ -99,16 +99,16 @@ export default function CinemaRecipeReviewCard() {
         {/* <IconButton aria-label="share">
           <ShareIcon />
         </IconButton> */}
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>{data.numSeats}</Typography>
@@ -116,7 +116,7 @@ export default function CinemaRecipeReviewCard() {
           <Typography paragraph>{data.description}</Typography>
           <Typography>{data.description}</Typography>
         </CardContent>
-      </Collapse>
+      {/* </Collapse> */}
     </Card>
   );
 }

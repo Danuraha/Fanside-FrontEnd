@@ -6,6 +6,8 @@ import lOGIN from "./../images/Login.jpeg";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {Link} from "react-router-dom";
+import { margin } from "@mui/system";
 function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -50,7 +52,7 @@ function LoginPage() {
   };
 
   return (
-    <Grid container flexDirection={"row"} sx={{ backgroundColor: "#f2d9fa" }}>
+    <Grid container flexDirection={"row"} >
       <Grid item >
         <img src={lOGIN} width={"630px"} />
       </Grid>
@@ -82,6 +84,9 @@ function LoginPage() {
               Login
             </Button>
           </form>
+          <Grid display={'flex'} sx={{margin:'50px',justifyContent:'center'}} >
+            Don't have an account? Go to <Link to="/signup"> SignUp</Link> here.
+          </Grid>
         </div>
       </Grid>
     </Grid>

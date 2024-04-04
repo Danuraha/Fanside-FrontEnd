@@ -20,7 +20,7 @@ export default function MediaCard({ data }) {
   };
 
   const handleBookClick = () => {
-    navigate('/movieCinema/'); // Pass movieId as a parameter
+    navigate(`/movieCinema/${data.movieId}`); // Pass movieId as a parameter
   };
 
   return (

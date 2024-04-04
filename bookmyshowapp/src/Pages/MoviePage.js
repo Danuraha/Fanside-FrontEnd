@@ -40,7 +40,9 @@ function MoviePage() {
     }
   }, [searchtext, items]); // Update filteredItems whenever searchText or items change
   return (
-    <Grid sx={{ backgroundColor: "#f2d9fa", width: "100%", height: "100%" }}>
+    <Grid>
+<PrimarySearchAppBar/>
+    <Grid sx={{  width: "100%", height: "100%" }}>
       <Typography fontSize={"30px"} fontWeight={'bold'} sx={{marginLeft:'40px',padding:'10px'}}>Movies</Typography>
       <SearchBar handleSearchChange={handleSearchChange} />
       <Grid
@@ -58,6 +60,8 @@ function MoviePage() {
         })}
       </Grid>
     </Grid>
+    </Grid>
+    
   );
 }
 export default MoviePage;
