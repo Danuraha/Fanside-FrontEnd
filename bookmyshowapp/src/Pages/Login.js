@@ -37,6 +37,7 @@ function LoginPage() {
 
       // Handle successful login
       console.log("Login successful:", response.data);
+      localStorage.setItem("authToken", response.data.token);
       alert("Login successful");
       // Store authentication token (if applicable)
       // Redirect to the main application or dashboard

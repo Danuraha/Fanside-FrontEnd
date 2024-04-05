@@ -10,17 +10,25 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
-
+import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
 import PrimarySearchAppBar from '../Components/AppBar';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 const UserProfile = () => {
   const [userData, setUserData] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [editedUserData, setEditedUserData] = useState({});
 
+  const token=localStorage.getItem('authToken');
+  const decoded = jwtDecode(token);
+
+  console.log(decoded.sub); // This will log the public claims of the token
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/api/v1/user/1'); // Replace with your actual API endpoint
+      const response = await axios.get(`http://localhost:8081/api/v1/user/${decoded.sub}`); // Replace with your actual API endpoint
       setUserData(response.data);
       setEditedUserData(response.data); // Initialize editedUserData with fetched data
     } catch (error) {
@@ -37,17 +45,44 @@ const UserProfile = () => {
     setEditMode(!editMode);
   };
 
+  // const handleChange = (event) => {
+  //   setEditedUserData({
+  //     ...editedUserData,
+      
+  //     [event.target.name]: event.target.value,
+  //     email: decoded.sub
+  //   });
+  // };
+
   const handleChange = (event) => {
+    const { name, value } = event.target;
+  
+    // Disallow spaces and non-numeric characters in the phone number field
+    if (name === 'phoneNumber') {
+      if (!/^\d+$/.test(value)) {
+        alert("Phone number can only contain numbers.");
+        return; // Prevent further execution
+      } else if (value.includes(' ')) {
+        alert("Phone number cannot contain spaces.");
+        return; // Prevent further execution
+      }
+    }
+  
+    // For other fields or valid phone number input, update the editedUserData state
     setEditedUserData({
       ...editedUserData,
-      [event.target.name]: event.target.value,
+      [name]: value,
+      email: decoded.sub
     });
   };
+  
 
   const handleSave = async () => {
     try {
+      console.log(editedUserData);
+
       const response = await axios.put('http://localhost:8081/api/v1/user/save', 
-      {editedUserData}
+      editedUserData
       );
       console.log('Response from PUT request:', response.data);
       setUserData(response.data);
@@ -109,14 +144,30 @@ const UserProfile = () => {
                   fullWidth
                   margin="normal"
                 />
-                <TextField
+                {/* <TextField
                   label="Gender"
                   name="gender"
                   value={editedUserData.gender}
                   onChange={handleChange}
                   fullWidth
                   margin="normal"
-                />
+                /> */}
+
+<FormControl fullWidth margin="normal">
+  <InputLabel htmlFor="gender">Gender</InputLabel>
+  <Select
+    labelId="gender"
+    id="gender"
+    name="gender"
+    value={editedUserData.gender}
+    onChange={handleChange}
+  >
+    <MenuItem value="female">Female</MenuItem>
+    <MenuItem value="male">Male</MenuItem>
+    <MenuItem value="notsure">Not Sure</MenuItem>
+  </Select>
+</FormControl>
+
               </>
             ) : (
               <>
