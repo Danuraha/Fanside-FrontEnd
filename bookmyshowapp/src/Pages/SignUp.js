@@ -8,39 +8,78 @@ import { Grid } from "@mui/material";
 import Image from "./../images/SignUp.jpeg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 function SignupPage() {
   const navigate = useNavigate();
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
 
-  
-  const handlefirstNameChange = (event) => {
-    setfirstName(event.target.value);
+  const handleInputChange = (event, field) => {
+    const { value } = event.target;
+    switch (field) {
+      case "firstName":
+        setFirstName(value);
+        break;
+      case "lastName":
+        setLastName(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "password":
+        setPassword(value);
+        setErrors({ ...errors, confirmPassword: confirmPassword === value ? "" : "Passwords do not match" });
+        break;
+      case "confirmPassword":
+        setConfirmPassword(value);
+        setErrors({ ...errors, confirmPassword: password === value ? "" : "Passwords do not match" });
+        break;
+      default:
+        break;
+    }
   };
 
-  const handlelastNameChange = (event) => {
-    setlastName(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
+  const handleBlur = (field) => {
+    switch (field) {
+      case "firstName":
+        setErrors({ ...errors, firstName: firstName ? "" : "First Name is required" });
+        break;
+      case "lastName":
+        setErrors({ ...errors, lastName: lastName ? "" : "Last Name is required" });
+        break;
+      case "email":
+        setErrors({ ...errors, email: email ? "" : "Email is required" });
+        break;
+      case "password":
+        setErrors({ ...errors, password: password ? "" : "Password is required" });
+        break;
+      case "confirmPassword":
+        setErrors({ ...errors, confirmPassword: confirmPassword ? "" : "Confirm Password is required" });
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    // Validation logic can be added here before form submission
+    // For example, you can check if passwords match, email format is correct, etc.
+    if (password !== confirmPassword) {
+      setErrors({ ...errors, confirmPassword: "Passwords do not match" });
+      
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8081/api/v1/auth/signup", {
         firstName,
@@ -51,63 +90,59 @@ function SignupPage() {
       console.log("Signup successful!", response.data);
       alert("Signup successful!");
       navigate("/login");
-      // Handle successful signup (e.g., redirect to login page)
     } catch (error) {
       if (error.response) {
-        // Handle API error messages (e.g., username conflict)
-        setErrorMessage(error.response.data.message);
+        setErrors({ ...errors, email: "Email is already in use" });
       } else {
         console.error("Error:", error.message);
-        setErrorMessage("An error occurred during signup. Please try again.");
+        alert("An error occurred during signup. Please try again.");
       }
     }
   };
 
   return (
-    <Grid container flexDirection={"row"} sx={{ margin: "2vw" }}>
+    <Grid container flexDirection="row" sx={{ margin: "2vw" }}>
       <Grid item>
-        <img src={Image} width={"600vw"} />
+        <img src={Image} width="600vw" alt="signup" />
       </Grid>
-      <Grid item sx={{  width: "30vw" }}>
+      <Grid item sx={{ width: "30vw" }}>
         <div className="signup-page">
           <h1>Sign Up</h1>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <form onSubmit={handleSubmit}>
             <FormControl margin="normal" fullWidth>
               <TextField
-                label="firstName"
+                label="First Name"
                 variant="outlined"
                 required
                 value={firstName}
-                onChange={handlefirstNameChange}
+                onChange={(e) => handleInputChange(e, "firstName")}
+                onBlur={() => handleBlur("firstName")}
               />
-              <FormHelperText>
-                {errorMessage ? "firstName is required" : ""}
-              </FormHelperText>
+              <FormHelperText error>{errors.firstName}</FormHelperText>
             </FormControl>
             <FormControl margin="normal" fullWidth>
               <TextField
-                label="lastName"
+                label="Last Name"
                 variant="outlined"
                 required
                 value={lastName}
-                onChange={handlelastNameChange}
+                onChange={(e) => handleInputChange(e, "lastName")}
+                onBlur={() => handleBlur("lastName")}
               />
-              <FormHelperText>
-                {errorMessage ? "lastName is required" : ""}
-              </FormHelperText>
+              <FormHelperText error>{errors.lastName}</FormHelperText>
             </FormControl>
             <FormControl margin="normal" fullWidth>
-          <TextField
-            label="Email"
-            variant="outlined"
-            type="email"
-            required
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <FormHelperText>{errorMessage ? 'Email is required' : ''}</FormHelperText>
-        </FormControl>
+              <TextField
+                label="Email"
+                variant="outlined"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => handleInputChange(e, "email")}
+                onBlur={() => handleBlur("email")}
+              />
+              <FormHelperText error>{errors.email}</FormHelperText>
+            </FormControl>
             <FormControl margin="normal" fullWidth>
               <TextField
                 label="Password"
@@ -115,11 +150,10 @@ function SignupPage() {
                 type="password"
                 required
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) => handleInputChange(e, "password")}
+                onBlur={() => handleBlur("password")}
               />
-              <FormHelperText>
-                {errorMessage ? "Password is required" : ""}
-              </FormHelperText>
+              <FormHelperText error>{errors.password}</FormHelperText>
             </FormControl>
             <FormControl margin="normal" fullWidth>
               <TextField
@@ -128,11 +162,10 @@ function SignupPage() {
                 type="password"
                 required
                 value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
+                onChange={(e) => handleInputChange(e, "confirmPassword")}
+                onBlur={() => handleBlur("confirmPassword")}
               />
-              <FormHelperText>
-                {errorMessage ? "Passwords do not match" : ""}
-              </FormHelperText>
+              <FormHelperText error>{errors.confirmPassword}</FormHelperText>
             </FormControl>
             <Button variant="contained" type="submit" fullWidth>
               Sign Up

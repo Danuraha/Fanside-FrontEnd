@@ -93,7 +93,7 @@ function CinemaMovie() {
                 </Grid>
                 <Grid item xs={3} sx={{ marginTop: "10px" }}>
                   {" "}
-                  <AlertDialogSlide />
+                  <AlertDialogSlide data={show} key={index}/>
                 </Grid>
               </Grid>
             ))}

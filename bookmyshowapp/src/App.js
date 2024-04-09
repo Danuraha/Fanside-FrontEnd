@@ -19,7 +19,7 @@ function App() {
   return (
     <div>
       <Router>
-        {/* <div> */}
+      
 
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -36,11 +36,12 @@ function App() {
           <Route path="/cinemaPage" element={<CinemaPage />} />
           <Route path="/movieCinema/:movieId" element={<MovieCinemaPage />} />
           <Route path="/cinemaMovie/:cinemaId" element={<CinemaMovie />} />
-          <Route path="/bookingPage" element={<TicketbookingPage />} />
+          <Route path="/bookingPage/:showId" element={<TicketbookingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/paymentgateway/:bookingId" element={<PaymentGateway />} />
         </Routes>
-        {/* </div> */}
+      
       </Router>
      
       {/* <TicketbookingPage/> */}

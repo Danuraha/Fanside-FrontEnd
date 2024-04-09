@@ -10,14 +10,16 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useNavigate } from "react-router-dom"; // Import for navigation
+import { useNavigate, useParams } from "react-router-dom"; // Import for navigation
+import { Typography } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide() {
-  const [seat, setSeat] = React.useState("");
+export default function AlertDialogSlide({data}) {
+
+  const [seat, setSeat] = React.useState(0);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -35,7 +37,15 @@ export default function AlertDialogSlide() {
 
   const handleClick=()=> {
     if (seat > 0) {
-      navigate("/bookingPage", { state: { selectedSeats: seat } }); // Pass seat count to booking page
+      const state = {
+        seatCount: seat,
+        price:data.price
+      }
+
+      navigate(`/bookingPage/${data.showtimeId}`, { state }
+      // , { state: { selectedSeats: seat } }
+      ); // Pass seat count to booking page
+      console.log(`${data.showtimeId}`);
     }
   }
 
@@ -62,8 +72,8 @@ export default function AlertDialogSlide() {
           <Select
             // labelId="demo-select-small-label"
             // id="demo-select-small"
-            // value={seat}
-            // label="SeatCount"
+            value={seat}
+            label="SeatCount"
             onChange={handleChange}
           >
             {/* <MenuItem value="">
@@ -81,6 +91,7 @@ export default function AlertDialogSlide() {
             <MenuItem value={10}>10</MenuItem>
           </Select>
         </FormControl>
+       
         <DialogActions>
           <Button onClick={handleClose} variant="outlined">
             Cancel
