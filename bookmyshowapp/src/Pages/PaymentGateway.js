@@ -23,8 +23,15 @@ function PaymentGateway() {
 
   const fetchBooking = async () => {
     try {
+      const token = localStorage.getItem('authToken');
+      console.log(token);
       const response = await axios.get(
-        `http://localhost:8081/api/v1/booking/${bookingId}`
+        `http://localhost:8081/api/v1/booking/${bookingId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },}
       );
       setBookingDetails(response.data);
     } catch (error) {
@@ -34,8 +41,15 @@ function PaymentGateway() {
 
   const fetchSeatIds = async () => {
     try {
+      const token = localStorage.getItem('authToken');
+      console.log(token);
       const response = await axios.get(
-        `http://localhost:8081/api/v1/reservation/getseat/${bookingId}`
+        `http://localhost:8081/api/v1/reservation/getseat/${bookingId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },}
       );
       setSeatIds(response.data);
       console.log(response.data);

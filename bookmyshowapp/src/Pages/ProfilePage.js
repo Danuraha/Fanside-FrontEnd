@@ -17,6 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import ResetPasswordCard from '../Components/ResetPassword';
 const UserProfile = () => {
   const [userData, setUserData] = useState({});
   const [editMode, setEditMode] = useState(false);
@@ -28,12 +29,19 @@ const UserProfile = () => {
   console.log(decoded.sub); // This will log the public claims of the token
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/api/v1/user/${decoded.sub}`); // Replace with your actual API endpoint
+      const token = localStorage.getItem('authToken');
+    console.log(token);
+      const response = await axios.get(`http://localhost:8081/api/v1/user/${decoded.sub}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },}
+        ); // Replace with your actual API endpoint
       setUserData(response.data);
       setEditedUserData(response.data); // Initialize editedUserData with fetched data
     } catch (error) {
       console.error('Error fetching user data:', error);
-      // Handle errors appropriately, e.g., display an error message to the user
     }
   };
 
@@ -45,19 +53,11 @@ const UserProfile = () => {
     setEditMode(!editMode);
   };
 
-  // const handleChange = (event) => {
-  //   setEditedUserData({
-  //     ...editedUserData,
-      
-  //     [event.target.name]: event.target.value,
-  //     email: decoded.sub
-  //   });
-  // };
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
   
-    // Disallow spaces and non-numeric characters in the phone number field
     if (name === 'phoneNumber') {
       if (!/^\d+$/.test(value)) {
         alert("Phone number can only contain numbers.");
@@ -79,10 +79,17 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
+      const token = localStorage.getItem('authToken');
+    console.log(token);
       console.log(editedUserData);
 
       const response = await axios.put('http://localhost:8081/api/v1/user/save', 
-      editedUserData
+      editedUserData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },}
       );
       console.log('Response from PUT request:', response.data);
       setUserData(response.data);
@@ -92,6 +99,8 @@ const UserProfile = () => {
       // Display an error message to the user or handle the error appropriately
     }
   };
+
+  
   
 
   return (
@@ -144,14 +153,14 @@ const UserProfile = () => {
                   fullWidth
                   margin="normal"
                 />
-                {/* <TextField
-                  label="Gender"
-                  name="gender"
-                  value={editedUserData.gender}
-                  onChange={handleChange}
+                <TextField
+                  label="Email"
+                  name="email"
+                  value={userData.email}
                   fullWidth
                   margin="normal"
-                /> */}
+                  disabled
+                />
 
 <FormControl fullWidth margin="normal">
   <InputLabel htmlFor="gender">Gender</InputLabel>
@@ -178,6 +187,8 @@ const UserProfile = () => {
                   Phone Number: {userData.phoneNumber}
                 </Typography>
                 <Typography variant="body1">Address: {userData.address}</Typography>
+                <Typography variant="body1">Email: {userData.email}</Typography>
+
                 <Typography variant="body1">Gender: {userData.gender}</Typography>
               </>
             )}
@@ -203,6 +214,8 @@ const UserProfile = () => {
         )}
       </CardContent>
     </Card>
+
+    <ResetPasswordCard/>
     </Grid>
  
   );

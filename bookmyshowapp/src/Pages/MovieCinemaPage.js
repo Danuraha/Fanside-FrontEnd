@@ -7,58 +7,46 @@ import AlertDialogSlide from "../Components/SeatCount";
 import Button from "@mui/material/Button";
 import PrimarySearchAppBar from "../Components/AppBar";
 function MovieCinemaPage() {
-  const [cinemas, setCinemas] = useState([]); // State to store fetched movies
+  const [cinemas, setCinemas] = useState([]); 
   const { movieId } = useParams();
-  // const [X,setX] = useState([]);
   useEffect(() => {
-    fetchMovies(); // Fetch data when the component mounts
+    fetchMovies(); 
   }, []);
 
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8081/api/v1/showtime/getbymovieId/${movieId}`
-      ); // Adjust the endpoint URL according to your backend API
-      // console.log(response.data); // Log the response data for debugging
+      ); 
 
-       // Filter for shows on or after the current date (adjusted for potential parsing issues)
        const filteredShows = response.data.filter((show) => {
         const showDate = new Date(show.showdate);
 
-        // Handle potential parsing issues
         if (isNaN(showDate.getTime())) {
           console.error(`Invalid date format for show: ${show.showdate}`);
-          return false; // Exclude invalid dates
+          return false;
         }
 
         return showDate >= new Date();
       });
-      setCinemas(filteredShows); // Update state with fetched movies
+      setCinemas(filteredShows); 
     } catch (error) {
       console.error("Error fetching cinemas:", error);
     }
   };
 
-  // const X = cinemas.filter(cinema =>cinema.cinema.cinemaId===2)
 
-  // Assuming `cinemas` is your array of cinema objects
-
-  // Extract unique cinema IDs
   const uniqueCinemaIds = [
     ...new Set(cinemas.map((cinema) => cinema.cinema.cinemaId)),
   ];
 
-  // Group cinemas by cinemaId
   const groupedByCinemaId = {};
 
-  // Iterate over each unique cinema ID
   uniqueCinemaIds.forEach((cinemaId) => {
-    // Filter cinemas by the current cinema ID
     const filteredCinemas = cinemas.filter(
       (cinema) => cinema.cinema.cinemaId === cinemaId
     );
 
-    // Add filtered cinemas to groupedByCinemaId
     groupedByCinemaId[cinemaId] = filteredCinemas;
   });
 
@@ -110,7 +98,7 @@ function MovieCinemaPage() {
               </Grid>
             ))}
 
-            <Divider />
+            <Divider sx={{marginTop:'50px'}} />
           </div>
         ))
       ) : (

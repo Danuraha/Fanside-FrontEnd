@@ -15,6 +15,7 @@ import CinemaMovie from "./Pages/CinemaMoviePage";
 import CinemaDescriptionPage from "./Pages/CinemaDescriptionPage";
 import PrimarySearchAppBar from "./Components/AppBar";
 import PaymentGateway from "./Pages/PaymentGateway";
+import History from "./Pages/History";
 function App() {
   return (
     <div>
@@ -40,6 +41,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/paymentgateway/:bookingId" element={<PaymentGateway />} />
+          <Route path="History" element={<History />} />
         </Routes>
       
       </Router>

@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { Button, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CottageRoundedIcon from '@mui/icons-material/CottageRounded';
+import axios from "axios";
 // const Search = styled("div")(({ theme }) => ({
 //   position: "relative",
 //   borderRadius: theme.shape.borderRadius,
@@ -57,9 +58,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+// const navigate = useNavigate();
 
 export default function PrimarySearchAppBar() {
-  const navigate = useNavigate();
+
   const handleSignUpClick = () => {
     navigate("/signup");
   };
@@ -94,10 +96,44 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
+  const navigate = useNavigate();
+
 
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+  };
+
+  const handleHistory = () => {
+    navigate("/history"); // Navigate to login page on button click
+  };
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      // const response = await fetch('http://localhost:8081/api/v1/auth/logout', { // Replace with your logout URL
+        // method: 'POST', // Consider using POST for CSRF protection
+        // credentials: 'include' // Include cookies for session management (if applicable)
+      // }
+      // );
+
+      const response = await axios.post('http://localhost:8081/api/v1/auth/logout',
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },} );
+
+
+      if (response.ok) {
+        navigate('/login'); // Redirect to login page after successful logout
+      } else {
+        console.error('Logout failed:', response.statusText);
+        // Handle logout failure (e.g., display an error message)
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Handle logout error (e.g., display an error message)
+    }
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -122,7 +158,9 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={profileClick}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+      <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+      <MenuItem onClick={handleHistory}>History</MenuItem>
+
     </Menu>
   );
 
@@ -204,7 +242,7 @@ export default function PrimarySearchAppBar() {
             orientation="vertical"
             variant="middle"
             flexItem
-            sx={{  height: "30px", margin: "5px" ,marginTop:'30px',width:'3px',backgroundColor:'yellow'}}
+            sx={{  height: "2vw", margin: "1vw" ,marginTop:'2.3vw',width:'3px',backgroundColor:'yellow'}}
           />
           <Button
             variant="h3"

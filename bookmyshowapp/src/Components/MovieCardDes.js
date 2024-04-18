@@ -111,11 +111,10 @@ export default function RecipeReviewCard() {
       </CardActions>
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
         <CardContent >
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>{data.genre}</Typography>
-          <Typography paragraph>{data.description}</Typography>
-          <Typography paragraph>{data.description}</Typography>
-          <Typography>{data.genre}</Typography>
+          <Typography paragraph>More:</Typography>
+          <Typography paragraph>Genere:{data.genre}</Typography>
+          <Typography paragraph>{data.descriptiveDescription}</Typography>
+          
         </CardContent>
       {/* </Collapse> */}
     </Card>

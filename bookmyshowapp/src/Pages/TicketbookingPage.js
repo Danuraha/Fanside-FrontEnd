@@ -70,7 +70,11 @@ const TicketBookingPage = () => {
   const { showId } = useParams();
   const [bookedSeats, setBookedSeats] = useState([]);
   const [bookingId, setBookingId] = useState(0);
+  const [childValue, setChildValue] = useState(0);
 
+  const handleChildValue = (value) => {
+    setChildValue(value);
+  };
   const token = localStorage.getItem("authToken");
   const decoded = jwtDecode(token);
   console.log(seatCount);
@@ -80,8 +84,15 @@ const TicketBookingPage = () => {
     // Fetch data for the booked seats when the component mounts
     const fetchBookedSeats = async () => {
       try {
+            const token = localStorage.getItem('authToken');
+    console.log(token);
         const response = await axios.get(
-          `http://localhost:8081/api/v1/reservation/seatIds/${showId}`
+          `http://localhost:8081/api/v1/reservation/seatIds/${showId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },}
         );
         const longValues = response.data;
         // const { bookedSeats } = response.data;
@@ -137,36 +148,37 @@ const TicketBookingPage = () => {
   // console.log(row);
 
   const handleProceed = async () => {
+
     try {
-      // Define the data to be sent in the request body
+          const token = localStorage.getItem('authToken');
+    console.log(token);
       const requestData = {
-        showId: `${showId}`, // Replace 'yourShowIdValue' with the actual showId value
+        showId: `${showId}`,
         seatId: selectedSeats.map((seat) => `${seat.row}${seat.seatNumber}`),
         email: `${decoded.sub}`,
         totalAmount:totalAmount,
       };
       console.log({ requestData });
-
-      // Make HTTP POST request to your backend endpoint
+      alert("Do you want to confirm booking?");
       const response = await axios.post(
         `http://localhost:8081/api/v1/booking/save`,
-        requestData
+        requestData,
+        {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },}
       );
 
       console.log("Response from backend:", response.data);
       const bookingId = response.data;
-
-      // Set the booking ID to the state variable
       setBookingId(bookingId);
 
       if (response.status >= 200 && response.status < 300) {
-        // Perform navigation to payment gateway page here
-
-        window.location.href = `/paymentgateway/${bookingId}`; // Adjust the URL as needed
+       
+        window.location.href = `/paymentgateway/${bookingId}`; 
         console.log(bookingId);
       }
-
-      // Reset selected seats after successful submission
       setSelectedSeats([]);
     } catch (error) {
       console.error("Error:", error);
@@ -189,19 +201,21 @@ const TicketBookingPage = () => {
           />
         ))}
       </Grid>
+      <Grid sx={{height:'4px' , width:'300px',backgroundColor:'grey',marginTop:'10px'}}></Grid>
       <Grid>
         <Typography fontSize={"18px"} margin={"30px"} color={"green"}>
           Total Amount: Rs.{totalAmount}
         </Typography>
       </Grid>
       <Grid sx={{margin:'20px'}}>
-        <PaymentForm />
+        <PaymentForm onPayementSelect={handleChildValue} />
+        {/* {childValue} */}
       </Grid>
       <Grid>
         <Button
           variant="contained"
           onClick={handleProceed}
-          disabled={seatCount != selectedSeats.length}
+          disabled={seatCount !== selectedSeats.length || childValue===0}
         >
           Proceed
         </Button>

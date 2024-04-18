@@ -89,12 +89,13 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-function PaymentForm(){
+function PaymentForm({onPayementSelect}){
   const [value, setValue] = React.useState(0);
 
   console.log(value);
   const handleChange = (event) => {
     setValue(event.target.value);
+    onPayementSelect(event.target.value);
   };
   return(
     <Grid display={'flex'} justifyContent={'center'} alignItems={'center'} sx={{width:'220px',backgroundColor:'#f7edd0',height:'220px',borderRadius:'7px'}}>

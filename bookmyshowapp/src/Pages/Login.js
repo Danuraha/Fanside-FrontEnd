@@ -33,20 +33,17 @@ function LoginPage() {
           email,
           password,
         }
-      ); // Adjust the URL if needed
-
-      // Handle successful login
+      ); 
       console.log("Login successful:", response.data);
       localStorage.setItem("authToken", response.data.token);
       alert("Login successful");
-      // Store authentication token (if applicable)
-      // Redirect to the main application or dashboard
+     
       setEmail("");
       setPassword("");
-      setErrorMessage(""); // Clear any previous errors
+      setErrorMessage(""); 
       navigate("/");
     } catch (error) {
-      // Handle login errors
+    
       console.error("Login error:", error);
       setErrorMessage("Invalid username or password. Please try again.");
     }

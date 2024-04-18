@@ -35,20 +35,21 @@ export default function AlertDialogSlide({data}) {
     setOpen(false);
   };
 
-  const handleClick=()=> {
-    if (seat > 0) {
-      const state = {
-        seatCount: seat,
-        price:data.price
+  const handleClick = () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      if (seat > 0) {
+        const state = {
+          seatCount: seat,
+          price: data.price
+        }
+        navigate(`/bookingPage/${data.showtimeId}`, { state });
       }
-
-      navigate(`/bookingPage/${data.showtimeId}`, { state }
-      // , { state: { selectedSeats: seat } }
-      ); // Pass seat count to booking page
-      console.log(`${data.showtimeId}`);
+    } else {
+      // Navigate to the login page if there is no token
+      navigate('/login');
     }
   }
-
   return (
     <React.Fragment>
       <Button variant="contained" onClick={handleClickOpen}>

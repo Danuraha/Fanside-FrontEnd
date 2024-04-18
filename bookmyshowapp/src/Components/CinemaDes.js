@@ -16,7 +16,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Img from "./../images/Cinema.jpeg";
 import { Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom"; // Import for navigation
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const ExpandMore = styled((props) => {
@@ -35,15 +35,14 @@ export default function CinemaRecipeReviewCard() {
   const [data, setData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      // setIsLoading(true); // Set loading state to true
+     
       try {
         const response = await axios.get(
-          `http://localhost:8081/api/v1/cinema/${cinemaId}` // Adjust URL as needed
+          `http://localhost:8081/api/v1/cinema/${cinemaId}` 
         );
         console.log(response.data[0]);
         setData(response.data[0]);
       } catch (error) {
-        // setError(error);
         console.error("Error fetching cnemas:", error);
       }
     };
@@ -70,11 +69,7 @@ export default function CinemaRecipeReviewCard() {
   return (
     <Card >
       <CardHeader 
-        // avatar={
-        //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-        //     R
-        //   </Avatar>
-        // }
+       
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
@@ -85,7 +80,7 @@ export default function CinemaRecipeReviewCard() {
       <CardMedia component="img" height="400" image={Img} alt="Paella dish" />
       <CardContent >
         <Typography variant="body2" color="text.secondary">
-          {data.location}
+          {data.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -96,25 +91,13 @@ export default function CinemaRecipeReviewCard() {
         >
           Book Now
         </Button>
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
+       
       </CardActions>
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>{data.numSeats}</Typography>
-          <Typography paragraph>{data.description}</Typography>
-          <Typography paragraph>{data.description}</Typography>
-          <Typography>{data.description}</Typography>
+          <Typography paragraph>More:</Typography>
+          <Typography paragraph>{data.location}</Typography>
+          <Typography paragraph>{data.descriptiveDescription}</Typography>
         </CardContent>
       {/* </Collapse> */}
     </Card>
